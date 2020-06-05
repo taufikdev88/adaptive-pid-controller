@@ -14,7 +14,9 @@ void showTime(unsigned long timeleft){
   switch(slide){
     case 0:
     if(timeleft % 1000 == 0){
-      lcd.print("RUNNING.........");
+      lcd.print("RUNNING...");
+      lcd.setCursor(10,0);
+      lcd.print(String(airTemp) + "C");
       lcd.setCursor(0,1);
       lcd.print("timelf:         ");
       lcd.setCursor(7,1);
@@ -57,23 +59,23 @@ void run(){
     showTime(millis()-timer);
     
     // get instruction from user
-    if(isBtnUp){
+    if(isBtnUp()){
       if(slide == 0) slide = 2;
       else slide--;
     }
-    if(isBtnDw){
+    if(isBtnDw()){
       if(slide == 2) slide = 0;
       else slide++;
     }
-    if(isBtnSel){
+    if(isBtnSel()){
       taskNow = menu;
       break;
     }
-    if(isBtnRt){
+    if(isBtnRt()){
       if(slide == 1) temp++; // menambah suhu 1 derajat
       if(slide == 2) time+=60000; // menambah waktu 1 menit
     }
-    if(isBtnLf){
+    if(isBtnLf()){
       if(slide == 1) temp--; // mengurangi suhu 1 derajat
       if(slide == 2) time-=60000; // mengurangi waktu 1 menit
     }

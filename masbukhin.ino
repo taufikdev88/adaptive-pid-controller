@@ -123,9 +123,9 @@ void loop()
     lcd.print("<>");
     
     // get instruction from user
-    if(isBtnRt) mode.shiftRight();
-    if(isBtnLf) mode.shiftLeft();
-    if(isBtnSel){
+    if(isBtnRt()) mode.shiftRight();
+    if(isBtnLf()) mode.shiftLeft();
+    if(isBtnSel()){
       taskNow = running;
       digitalWrite(relay1, 0);
       digitalWrite(relay2, 0);
