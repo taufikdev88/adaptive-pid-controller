@@ -4,8 +4,7 @@
  * 
  * fuzzy-pid
  * Edited by:   H. Taufik
- */
- 
+ */ 
 #define adaptive_pid // gunakan antara adaptive_pd dan adaptive_pid
 #define mode4 // jika menggunakan adaptive_pid, wajib menggunakan salah satu mode1 / mode2 / mode3 / mode4
 
@@ -58,15 +57,15 @@ float Fuzzy(float e) // fungsi Fuzzy
   #define piNM -0.05                                      // point Integral Error Negative Medium
   #define piNB -0.1                                       // point Integral Error Negative Big
   
-  #define poPH 90                                        // point of Output Positive Huge tone
-  #define poPB 60                                        // point of Output Positive Big tone
-  #define poPM 30                                        // point of Output Positive Medium tone
-  #define poPS 15                                         // point of Output Positive Small tone
+  #define poPH 20                                        // point of Output Positive Huge tone
+  #define poPB 15                                        // point of Output Positive Big tone
+  #define poPM 10                                        // point of Output Positive Medium tone
+  #define poPS 5                                         // point of Output Positive Small tone
   #define poZ 0                                           // point of Output Zero tone
-  #define poNS -15                                        // point of Output Negative Small tone
-  #define poNM -30                                       // point of Output Negative Medium tone
-  #define poNB -60                                       // point of Output Negative Big tone
-  #define poNH -90                                       // point of Output Negative Huge tone
+  #define poNS -5                                        // point of Output Negative Small tone
+  #define poNM -10                                       // point of Output Negative Medium tone
+  #define poNB -15                                       // point of Output Negative Big tone
+  #define poNH -20                                       // point of Output Negative Huge tone
 
                                                          // fungsi PID 
   de = e - LastError;                                    

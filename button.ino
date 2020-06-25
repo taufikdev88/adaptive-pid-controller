@@ -47,22 +47,20 @@ int adcKeyIn = 0;
 
 uint8_t readButton(){
   adcKeyIn = analogRead(0);
-  // 5 key value: 0,144,329,504,741
-  if(adcKeyIn > 1000) return btnNONE;
-  if(adcKeyIn < 50) return btnRT;
-  if(adcKeyIn < 250) return btnUP;
-  if(adcKeyIn < 450) return btnDW;
-  if(adcKeyIn < 650) return btnLF;
-  if(adcKeyIn < 850) return btnSEL;
+//  // 5 key value: 0,144,329,504,741
+//  if(adcKeyIn > 1000) return btnNONE;
+//  if(adcKeyIn < 50) return btnRT;
+//  if(adcKeyIn < 150) return btnUP;
+//  if(adcKeyIn < 300) return btnDW;
+//  if(adcKeyIn < 500) return btnLF;
+//  if(adcKeyIn < 850) return btnSEL;
 
   // V1.0 Use the following version threshold:
-  /*
   if(adcKeyIn < 50) return btnRT;
   if(adcKeyIn < 195) return btnUP;
-  if(adcKeyIn < 380) return btnDW;
+  if(adcKeyIn < 350) return btnDW;
   if(adcKeyIn < 555) return btnLF;
   if(adcKeyIn < 790) return btnSEL;
-  */
   return btnNONE;
 }
 

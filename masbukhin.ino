@@ -4,7 +4,6 @@
  * 
  * Created by:  H. Taufik
  */
- 
 #include <Servo.h> 
 #include <Wire.h> 
 //#include <LiquidCrystal_I2C.h>
@@ -15,8 +14,7 @@
 
 // start of pins declaration
 #define serPin 10    // Servo
-#define relay1 11    // Relay
-#define relay2 12
+#define relay 11    // Relay
 #define btnRT 0     // Button
 #define btnUP 1 
 #define btnDW 2
@@ -85,11 +83,29 @@ enum step {
   running
 };
 
+unsigned long delayUpdateLCD = millis();
+void lcdLine0(String abc){
+  if((unsigned long) millis() - delayUpdateLCD >= 400){
+    delayUpdateLCD = millis();
+    lcd.setCursor(0,0);
+    lcd.print(abc);
+  }
+}
+void lcdLine1(String abc){
+    lcd.setCursor(0,1);
+    lcd.print(abc);
+}
+
+unsigned long delayButton = millis();
+#define resetButton delayButton=millis()
+
 void setup()
 {  
+  Serial.begin(9600);
   servo.attach(serPin);
-  pinMode(relay1, OUTPUT);
-  pinMode(relay2, OUTPUT);
+  
+  pinMode(relay, OUTPUT);
+  
   #if defined(digital_button)
   pinMode(btnSEL, INPUT_PULLUP);
   pinMode(btnLF, INPUT_PULLUP);
@@ -98,49 +114,49 @@ void setup()
   pinMode(btnDW, INPUT_PULLUP);
   #endif
   
-  lcd.begin(16,2);  // lcd non i2c begin function
+  lcd.begin(16,2);  // lcd non i2c begin 
 //  lcd.begin();    // lcd i2c begin function
 //  lcd.backlight(); // lcd i2c function
   lcd.setCursor(0,0);
   lcd.print("COFFEE MAKER");
   lcd.setCursor(0,1);
   lcd.print("MASBUKHIN");
-  delay(3000);
+  delay(1000);
   lcd.clear();
+  
+  digitalWrite(relay, 0);
+  servo.write(defaultservoangle);
 }
 
 step taskNow = menu;
 void loop()
 {
+//  for(int i=0; i<=90; i++){
+//    servo.write(i);
+//    Serial.println((String) "servo angle: " + i);
+//    delay(1000);
+//  }
+//  return;
+  
+  servo.write(defaultservoangle);
+  lcdLine1(mode.getName());
   // standby mode choose menu
   while(taskNow == menu){
     // show information to user
-    lcd.setCursor(0,0);
-    lcd.print("   PILIH MENU   ");
-    lcd.setCursor(0,1);
-    lcd.print(mode.getName());
-    lcd.setCursor(15,1);
-    lcd.print("<>");
-    
+    lcdLine0("   PILIH MENU   ");
     // get instruction from user
-    if(isBtnRt()) mode.shiftRight();
-    if(isBtnLf()) mode.shiftLeft();
-    if(isBtnSel()){
+    bool buttonReady = ((unsigned long) millis() - delayButton > 500);
+    if(isBtnRt() && buttonReady){ mode.shiftRight(); resetButton; lcdLine1(mode.getName()); }
+    if(isBtnLf() && buttonReady){ mode.shiftLeft(); resetButton; lcdLine1(mode.getName()); }
+    if(isBtnSel() && buttonReady){
       taskNow = running;
-      digitalWrite(relay1, 0);
-      digitalWrite(relay2, 0);
       lcd.clear();
+      resetButton;
     }
-    
-    // set default configuration
-    digitalWrite(relay1, 1);
-    digitalWrite(relay2, 1);
-    servo.write(defaultservoangle);
   }
 
   // running mode
   while(taskNow == running){
     run();
-//    Fuzzy(12);
   }
 }
