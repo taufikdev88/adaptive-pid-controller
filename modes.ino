@@ -58,10 +58,7 @@ void run(){
     timeout = 60000 * darktimeout;
     break;
   }
-
-//  Serial.println(tempAct);
-//  return;
-
+  
   servo.write(0);
   delay(500);
   relayOn();
@@ -81,7 +78,7 @@ void run(){
     // getFuzzy output
     output = Fuzzy(200 - tempAct);
     output = constrain(output, 0, 90);
-    servo.write(startupangle-output);
+    servo.write(startupangle-output); // kalau pengen random, ganti ke servo.write(30 - random(0,50)/5);
 
     Serial.print(200);
     Serial.print('\t');
@@ -133,7 +130,7 @@ void run(){
     // getFuzzy output
     output = Fuzzy(temp - tempAct);
     output = constrain(output, 0, 90);
-    servo.write(startupangle-output);
+    servo.write(startupangle-output); // kalau pengen random, ganti ke servo.write(30 - random(0,50)/5);
     
     Serial.print(230);
     Serial.print('\t');
