@@ -25,7 +25,7 @@ float MF(float i, float a, float b, float c) // fungsi fuzzifikasi (convert cris
   else return (c - i) / (c - b);
 }
 
-float Fuzzy(float e) // fungsi Fuzzy 
+int Fuzzy(float e) // fungsi Fuzzy 
 {
   static float LastError = 0;
   float de;                                             // delta error
@@ -57,15 +57,15 @@ float Fuzzy(float e) // fungsi Fuzzy
   #define piNM -0.05                                      // point Integral Error Negative Medium
   #define piNB -0.1                                       // point Integral Error Negative Big
   
-  #define poPH 20                                        // point of Output Positive Huge tone
-  #define poPB 15                                        // point of Output Positive Big tone
-  #define poPM 10                                        // point of Output Positive Medium tone
-  #define poPS 5                                         // point of Output Positive Small tone
+  #define poPH 15                                        // point of Output Positive Huge tone
+  #define poPB 12                                        // point of Output Positive Big tone
+  #define poPM 8                                        // point of Output Positive Medium tone
+  #define poPS 4                                         // point of Output Positive Small tone
   #define poZ 0                                           // point of Output Zero tone
-  #define poNS -5                                        // point of Output Negative Small tone
-  #define poNM -10                                       // point of Output Negative Medium tone
-  #define poNB -15                                       // point of Output Negative Big tone
-  #define poNH -20                                       // point of Output Negative Huge tone
+  #define poNS -4                                        // point of Output Negative Small tone
+  #define poNM -8                                       // point of Output Negative Medium tone
+  #define poNB -12                                       // point of Output Negative Big tone
+  #define poNH -15                                       // point of Output Negative Huge tone
 
                                                          // fungsi PID 
   de = e - LastError;                                    
